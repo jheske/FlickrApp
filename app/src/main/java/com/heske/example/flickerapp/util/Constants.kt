@@ -4,4 +4,5 @@ package com.heske.example.flickerapp.util
 //https://www.flickr.com/services/feeds/photos_public.gne
 object Constants {
     const val BASE_URL = "https://www.flickr.com/services/feeds/photos_public.gne/"
+    const val PHOTO_EXTRA = "photo_extra"
 }

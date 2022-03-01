@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.heske.example.flickerapp.databinding.ListitemPhotoBinding
 import com.heske.example.flickerapp.network.Photo
-import java.io.File
 
 class PhotoRecyclerAdapter(
     private val onItemClicked: (Photo) -> Unit,
@@ -39,7 +38,6 @@ class PhotoRecyclerAdapter(
     override fun onBindViewHolder(holder: PhotosViewHolder, position: Int) {
         val photo = getItemAtPosition(position)
         holder.itemView.setOnClickListener {
-            // Edit photo
             onItemClicked(photo)
         }
         holder.bindItem(photo)
@@ -56,13 +54,6 @@ class PhotoRecyclerAdapter(
         photos = arrayListOf()
         photos.addAll(list)
         notifyDataSetChanged()
-    }
-
-    /**
-     * Add an item to the end of the list
-     */
-    fun add(photo: Photo) {
-        photos.add(photo)
     }
 }
 

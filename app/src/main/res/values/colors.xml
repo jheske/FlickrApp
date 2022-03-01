@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Primary and Secondary Brand colors -->
     <color name="colorPrimary">#F44336</color>
+    <color name="colorPrimaryLight">#F1756C</color>
     <color name="colorPrimaryVariant">#A8160C</color>
-
     <color name="colorSecondary">#D3D1D5</color>
     <color name="colorSecondaryVariant">#949397</color>
+
+    <!-- Other useful colors. -->
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray05">#FAFAFA</color>

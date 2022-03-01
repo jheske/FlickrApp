@@ -8,5 +8,5 @@ import javax.inject.Inject
 class Repository @Inject constructor(
     private val apiHelper: ApiHelper
 ){
-    suspend fun getPhotos() = apiHelper.getPhotos()
+    suspend fun fetchPhotos(searchString: String) = apiHelper.fetchPhotos(searchString)
 }

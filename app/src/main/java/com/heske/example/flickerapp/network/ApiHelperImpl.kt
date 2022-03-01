@@ -5,6 +5,7 @@ import javax.inject.Inject
 
 class ApiHelperImpl @Inject constructor(
     private val apiService: ApiService
-):ApiHelper{
-    override suspend fun getPhotos(): Response<FlickrResponse>  = apiService.getPhotos()
+) : ApiHelper {
+    override suspend fun fetchPhotos(searchString: String): Response<FlickrResponse> =
+        apiService.fetchPhotos(searchString)
 }

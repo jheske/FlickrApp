@@ -1,5 +1,9 @@
 package com.heske.example.flickerapp.network
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Photo(
     val author: String="",
     val author_id: String="",
@@ -10,4 +14,4 @@ data class Photo(
     val published: String="",
     val tags: String="",
     val title: String="TITLE"
-)
+): Parcelable

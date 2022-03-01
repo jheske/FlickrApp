@@ -17,13 +17,13 @@ class MainViewModel @Inject constructor(val repository: Repository): ViewModel()
     val photos : LiveData<Resource<List<Photo>>> = _photos
 
     init {
-        fetchPhotos()
+        fetchPhotos("airedale")
     }
 
-    private fun fetchPhotos()  = viewModelScope.launch {
+    fun fetchPhotos(searchString: String)  = viewModelScope.launch {
         _photos.postValue(Resource.loading(null))
 
-        repository.getPhotos().let { response ->
+        repository.fetchPhotos(searchString).let { response ->
             if (response.isSuccessful){
                 val list: List<Photo>? = response.body()?.items
                 _photos.postValue(Resource.success(response.body()?.items))
