@@ -38,6 +38,7 @@
     <dimen name="text_body2">12sp</dimen>
 
     <dimen name="detail_image_height">450dp</dimen>
+    <dimen name="detail_image_width">300dp</dimen>
     <dimen name="detail_content_offset">325dp</dimen>
     <dimen name="card_corner_radius">60dp</dimen>
 </resources>

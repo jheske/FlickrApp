@@ -45,8 +45,7 @@ class DetailActivity : AppCompatActivity() {
             .into(object : CustomTarget<Bitmap>() {
                 override fun onResourceReady(bitmap: Bitmap, transition: Transition<in Bitmap>?) {
                     val dimens = "${bitmap.width} x ${bitmap.height}"
-                    binding.dimensTextView.text =
-                        String.format(getString(R.string.image_size), dimens)
+                    binding.dimensTextView.text =   String.format(getString(R.string.image_size), dimens)
                     binding.imageView.setImageBitmap(bitmap)
                 }
 
@@ -60,8 +59,7 @@ class DetailActivity : AppCompatActivity() {
         binding.authorTextView.text = photoBy
     }
 
-    fun getImageDescription(html: String): String {
-        // val hrefs = Jsoup.parse(html).select("a[href]")
+    private fun getImageDescription(html: String): String {
         val parsedHtml = Jsoup.parse(html).select("p")
         // Return long-form text if there is any
         if (parsedHtml.size >= 3) {
