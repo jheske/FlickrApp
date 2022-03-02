@@ -21,6 +21,7 @@ class PhotoRecyclerAdapter(
         fun bindItem(photo: Photo) {
             binding?.apply {
                 this.photo = photo
+                imageView.contentDescription = photo.title
                 Glide.with(context)
                     .load(photo.media.m)
                     .into(imageView)
