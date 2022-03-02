@@ -60,6 +60,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun getImageDescription(html: String): String {
+        var altText = ""
         val parsedHtml = Jsoup.parse(html).select("p")
         // Return long-form text if there is any
         if (parsedHtml.size >= 3) {
