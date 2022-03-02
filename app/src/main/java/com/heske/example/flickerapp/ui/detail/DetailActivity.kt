@@ -13,6 +13,7 @@ import com.heske.example.flickerapp.R
 import com.heske.example.flickerapp.databinding.ActivityDetailBinding
 import com.heske.example.flickerapp.network.Photo
 import com.heske.example.flickerapp.util.Constants.PHOTO_EXTRA
+import com.heske.example.flickerapp.util.Utils
 import org.jsoup.Jsoup
 
 class DetailActivity : AppCompatActivity() {
@@ -36,7 +37,6 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    //https://www.flickr.com/photos/keshet_rescue/51900369960/
     private fun setupContent(photo: Photo) {
         Glide.with(this)
             .asBitmap()
@@ -51,21 +51,10 @@ class DetailActivity : AppCompatActivity() {
                 override fun onLoadCleared(placeholder: Drawable?) {
                 }
             })
-        binding.descriptionTextView.text = getImageDescription(photo.description)
+        binding.descriptionTextView.text = Utils.getImageDescription(photo.description)
         binding.imageView.contentDescription = photo.title
         binding.titleTextView.text = photo.title
         val photoBy = String.format(getString(R.string.photo_by), photo.author)
         binding.authorTextView.text = photoBy
-    }
-
-    private fun getImageDescription(html: String): String {
-        var altText = ""
-        val parsedHtml = Jsoup.parse(html).select("p")
-        // Return long-form text if there is any
-        if (parsedHtml.size >= 3) {
-            return parsedHtml.select("p")[2].text()
-        }
-        // Else return shorter text
-        else return parsedHtml.select("p")[1].select("a").attr("title")
     }
 }

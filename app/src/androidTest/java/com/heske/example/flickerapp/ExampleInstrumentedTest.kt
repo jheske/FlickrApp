@@ -1,19 +1,16 @@
 package com.heske.example.flickerapp
 
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.rule.ActivityTestRule
 import com.heske.example.flickerapp.ui.main.MainActivity
-import org.junit.Assert.assertEquals
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.*
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.rule.ActivityTestRule
+import org.hamcrest.CoreMatchers.allOf
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import com.heske.example.flickerapp.R
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -22,18 +19,16 @@ import com.heske.example.flickerapp.R
  */
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
-    @Rule @JvmField
+    val SEARCH_TERM = "Airedale"
+
+    @Rule
+    @JvmField
     val activityRule = ActivityTestRule(MainActivity::class.java)
 
     @Test
-    fun clickButton() {
-       onView(withId(R.id.searchView)).perform(click()).check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun useAppContext() {
-        // Context of the app under test.
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.heske.example.flickerapp", appContext.packageName)
+    fun searchViewTextTest() {
+        onView(allOf(supportsInputMethods(), isDescendantOfA(withId(R.id.searchView))))
+            .perform(typeText(SEARCH_TERM))
+            .check(matches(isDisplayed()))
     }
 }
