@@ -11,38 +11,36 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_photo_list_item"
-        android:layout_width="300dp"
-        android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/gray05">
 
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="350dp"
                 android:scaleType="center"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <!-- FlickrResponse Title -->
             <TextView
                 android:id="@+id/titleTextView"
-                android:background="@color/translucent_black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_title_small"
-                android:textColor="#77FFFFFF"
+                android:textColor="@color/gray60"
                 android:textStyle="bold"
                 android:textAlignment="center"
                 android:text="@{photo.title}"
                 android:paddingHorizontal="@dimen/material_medium"
                 android:paddingVertical="@dimen/material_large"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/imageView"
                 tools:text="Flickr Image Title" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
