@@ -26,9 +26,29 @@
             android:layout_height="0dp"
             android:background="@color/colorPrimaryLight"
             android:textCursorDrawable="@null"
+            app:queryHint="@string/search_hint"
             app:layout_constraintTop_toTopOf="parent"
             app:iconifiedByDefault="false"
             app:queryBackground="@null" />
+
+        <TextView
+            android:id="@+id/recentSearchesTextView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:text="@string/no_recent_searches"
+            android:layout_margin="@dimen/material_large"
+            android:textSize="@dimen/text_title_medium"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/searchView"/>
+
+        <ListView
+            android:visibility="gone"
+            android:id="@+id/recentSearchesListView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/material_medium"
+            app:layout_constraintTop_toBottomOf="@id/recentSearchesTextView"
+            tools:itemCount="5"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/photoRecyclerView"
@@ -36,7 +56,8 @@
             android:layout_height="wrap_content"
             android:background="@color/gray05"
             android:paddingBottom="@dimen/material_2xlarge"
-            app:layout_constraintTop_toBottomOf="@id/searchView"
+            android:layout_marginTop="@dimen/material_medium"
+            app:layout_constraintTop_toBottomOf="@id/recentSearchesListView"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="2"
             app:layout_constrainedHeight="true"

@@ -2,4 +2,7 @@
     <string name="app_name">FlickerApp</string>
     <string name="photo_by">Photo by %s</string>
     <string name="image_size">Image size %s</string>
+    <string name="search_hint">Enter a search term</string>
+    <string name="recent_searches">Recent searches</string>
+    <string name="no_recent_searches">You have no recent searches. Enter a search term above.</string>
 </resources>
