@@ -28,6 +28,7 @@
             android:layout_margin="@dimen/material_large"
             android:textSize="@dimen/text_title_medium"
             android:textStyle="bold"
+            android:textColor="@color/gray50"
             app:layout_constraintTop_toTopOf="parent"/>
 
         <ListView

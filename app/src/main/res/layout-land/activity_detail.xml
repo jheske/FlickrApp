@@ -39,7 +39,7 @@
                     android:id="@+id/titleTextView"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:textAlignment="center"
+                    style="@style/DetailText"
                     android:text="@{photo.title}"
                     android:textStyle="bold"
                     android:textSize="@dimen/text_title"
@@ -51,8 +51,8 @@
                     android:id="@+id/authorTextView"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:textAlignment="center"
                     android:layout_marginTop="@dimen/material_medium"
+                    style="@style/DetailText"
                     app:layout_constraintTop_toBottomOf="@id/titleTextView"
                     tools:text="AUTHOR" />
 
@@ -60,14 +60,16 @@
                     android:id="@+id/dimensTextView"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:textAlignment="center"
+                    style="@style/DetailText"
                     android:layout_marginTop="@dimen/material_medium"
+                    tools:text="Dimensions"
                     app:layout_constraintTop_toBottomOf="@id/authorTextView" />
 
                 <TextView
                     android:id="@+id/descriptionTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    style="@style/DetailText"
                     android:textSize="@dimen/text_headline2"
                     android:layout_marginTop="@dimen/material_medium"
                     android:paddingBottom="@dimen/material_2xlarge"

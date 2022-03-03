@@ -12,21 +12,20 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/card_photo_list_item"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/black">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/gray05">
+            android:background="@color/black">
 
             <ImageView
-                android:background="@color/colorPrimary"
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/detail_image_height"
                 android:scaleType="centerCrop"
-                tools:src="@drawable/test_photo"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -35,13 +34,8 @@
                 android:id="@+id/titleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_title_small"
-                android:textColor="@color/gray60"
-                android:textStyle="bold"
-                android:textAlignment="center"
+                style="@style/PhotoTitle"
                 android:text="@{photo.title}"
-                android:paddingHorizontal="@dimen/material_medium"
-                android:paddingVertical="@dimen/material_large"
                 app:layout_constraintTop_toBottomOf="@+id/imageView"
                 tools:text="Flickr Image Title" />
         </androidx.constraintlayout.widget.ConstraintLayout>
