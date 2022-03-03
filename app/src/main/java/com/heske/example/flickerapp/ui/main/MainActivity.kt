@@ -2,11 +2,11 @@ package com.heske.example.flickerapp.ui.main
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -22,7 +22,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val viewModel by viewModels<MainViewModel>()
@@ -32,9 +31,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var searchText: String
     private lateinit var recentSearchesAdapter: ArrayAdapter<String>
 
-    private val recentSearches = arrayListOf<String>()
-
-    var queryTextChangedJob: Job? = null
+    private var recentSearches = arrayListOf<String>()
+    private var queryTextChangedJob: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,12 +43,16 @@ class MainActivity : AppCompatActivity() {
 
         setupRecyclerView()
         setupObservers()
-        setupSearchView()
         setupRecentSearchesListView()
     }
 
-    private fun setupSearchView() {
-        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        val search = menu.findItem(R.id.searchBar)
+
+        val searchView = search.actionView as SearchView
+        searchView.queryHint = getString(R.string.search_hint)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
@@ -58,7 +60,7 @@ class MainActivity : AppCompatActivity() {
             override fun onQueryTextChange(newText: String?): Boolean {
                 val text = newText ?: return false
                 searchText = text
-                binding.recentSearchesListView?.visibility = VISIBLE
+                binding.recentSearchesListView.visibility = VISIBLE
                 queryTextChangedJob?.cancel()
                 queryTextChangedJob = lifecycleScope.launch(Dispatchers.Main) {
                     delay(2000)
@@ -69,6 +71,7 @@ class MainActivity : AppCompatActivity() {
                 return false
             }
         })
+        return super.onCreateOptionsMenu(menu)
     }
 
     private fun setupObservers() {
@@ -95,30 +98,53 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        recyclerAdapter = PhotoRecyclerAdapter{
-            startActivity(DetailActivity.intent(this,it))
+        recyclerAdapter = PhotoRecyclerAdapter {
+            startActivity(DetailActivity.intent(this, it))
         }
         binding.photoRecyclerView.adapter = recyclerAdapter
     }
 
     private fun setupRecentSearchesListView() {
-        recentSearchesAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, recentSearches)
-        binding.recentSearchesListView?.adapter = recentSearchesAdapter
-        binding.recentSearchesListView?.onItemClickListener =
-            OnItemClickListener { parent, view, position, id ->
-                val clickedItem = binding.recentSearchesListView?.getItemAtPosition(position) as String
-                Toast.makeText(this@MainActivity, clickedItem, Toast.LENGTH_LONG).show()
-            }
+        recentSearches = viewModel.getRecentSearches()
+        recentSearchesAdapter =
+            ArrayAdapter(this, android.R.layout.simple_list_item_1, recentSearches)
+        binding.apply {
+            recentSearchesListView.adapter = recentSearchesAdapter
+            setSearchListVisibility()
+            recentSearchesListView.onItemClickListener =
+                OnItemClickListener { parent, view, position, id ->
+                    viewModel.fetchPhotos(
+                        recentSearchesListView.getItemAtPosition(position) as String
+                    )
+                }
+        }
     }
 
+    private fun setSearchListVisibility() {
+        if (recentSearches.size > 0) {
+            binding.recentSearchesListView.visibility = VISIBLE
+            binding.recentSearchesTextView.text = getString(R.string.recent_searches)
+        }
+    }
+
+    /**
+     * Add save most recent search term.
+     * Don't add to the list if searchTerm is an empty string,
+     * or if it already exists in the list.
+     */
     private fun updateRecentSearches(searchTerm: String) {
+        if (searchTerm.isEmpty()
+            || !recentSearches.firstOrNull { it == searchTerm }.isNullOrEmpty()
+        ) {
+            return
+        }
+
         if (recentSearches.size >= 5) {
             recentSearches.removeAt(0)
         }
         recentSearches.add(searchTerm)
-        if (recentSearches.size > 0) {
-            binding.recentSearchesTextView?.text = getString(R.string.recent_searches)
-        }
+        viewModel.saveRecentSearches(recentSearches)
+        setSearchListVisibility()
         recentSearchesAdapter.notifyDataSetChanged()
     }
 }

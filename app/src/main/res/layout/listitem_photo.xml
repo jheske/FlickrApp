@@ -24,7 +24,8 @@
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/detail_image_height"
-                android:scaleType="center"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/test_photo"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />

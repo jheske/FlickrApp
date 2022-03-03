@@ -21,10 +21,12 @@
             android:background="@color/gray05">
 
             <ImageView
+                android:background="@color/colorPrimary"
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
-                android:scaleType="center"
+                android:layout_height="@dimen/detail_image_height"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/test_photo"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 

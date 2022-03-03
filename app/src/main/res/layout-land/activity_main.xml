@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ProgressBar
             android:visibility="gone"
@@ -17,29 +17,47 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:elevation="10dp"/>
-
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="@color/colorPrimaryLight"
-            android:textCursorDrawable="@null"
-            app:layout_constraintTop_toTopOf="parent"
-            app:iconifiedByDefault="false"
-            app:queryBackground="@null" />
+            android:elevation="10dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/photoRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:background="@color/gray05"
-            app:layout_constraintTop_toBottomOf="@id/searchView"
+            app:layout_constraintWidth_percent=".65"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="3"
+            app:spanCount="2"
             tools:itemCount="2"
             tools:listitem="@layout/listitem_photo" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toEndOf="@id/photoRecyclerView"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <TextView
+                android:id="@+id/recentSearchesTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/no_recent_searches"
+                android:layout_margin="@dimen/material_large"
+                android:textSize="@dimen/text_title_medium"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <ListView
+                android:visibility="visible"
+                android:id="@+id/recentSearchesListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/material_medium"
+                app:layout_constraintTop_toBottomOf="@id/recentSearchesTextView"
+                tools:itemCount="5" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
