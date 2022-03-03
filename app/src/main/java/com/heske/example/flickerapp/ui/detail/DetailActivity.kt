@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
@@ -14,7 +15,7 @@ import com.heske.example.flickerapp.databinding.ActivityDetailBinding
 import com.heske.example.flickerapp.network.Photo
 import com.heske.example.flickerapp.util.Constants.PHOTO_EXTRA
 import com.heske.example.flickerapp.util.Utils
-import org.jsoup.Jsoup
+
 
 class DetailActivity : AppCompatActivity() {
     companion object {
@@ -30,10 +31,23 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityDetailBinding.inflate(layoutInflater)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = getString(R.string.image_details)
         setContentView(binding.root)
         intent.getParcelableExtra<Photo>(PHOTO_EXTRA)?.let {
             binding.photo = it
             setupContent(it)
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
@@ -44,7 +58,8 @@ class DetailActivity : AppCompatActivity() {
             .into(object : CustomTarget<Bitmap>() {
                 override fun onResourceReady(bitmap: Bitmap, transition: Transition<in Bitmap>?) {
                     val dimens = "${bitmap.width} x ${bitmap.height}"
-                    binding.dimensTextView.text =   String.format(getString(R.string.image_size), dimens)
+                    binding.dimensTextView.text =
+                        String.format(getString(R.string.image_size), dimens)
                     binding.imageView.setImageBitmap(bitmap)
                 }
 

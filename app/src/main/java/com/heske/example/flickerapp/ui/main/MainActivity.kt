@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                 binding.recentSearchesListView.visibility = VISIBLE
                 queryTextChangedJob?.cancel()
                 queryTextChangedJob = lifecycleScope.launch(Dispatchers.Main) {
-                    delay(2000)
+                    delay(2500)
                     Keyboard.dismiss(this@MainActivity)
                     updateRecentSearches(searchText)
                     viewModel.fetchPhotos(searchText)
@@ -76,6 +76,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupObservers() {
         viewModel.photos.observe(this) { response ->
+            Keyboard.dismiss(this@MainActivity)
             when (response.status) {
                 Status.SUCCESS -> {
                     binding.progressBar.visibility = GONE
