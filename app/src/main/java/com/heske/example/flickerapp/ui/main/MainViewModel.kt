@@ -24,10 +24,6 @@ class MainViewModel @Inject constructor(
     private val _recentSearches = MutableLiveData<ArrayList<String>>()
     val recentSearches: LiveData<ArrayList<String>> = _recentSearches
 
-//    init {
-//        fetchPhotos("airedale")
-//    }
-
     fun fetchPhotos(searchString: String) = viewModelScope.launch {
         _photos.postValue(Resource.loading(null))
 

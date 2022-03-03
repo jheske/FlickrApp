@@ -16,7 +16,6 @@ import com.heske.example.flickerapp.network.Photo
 import com.heske.example.flickerapp.util.Constants.PHOTO_EXTRA
 import com.heske.example.flickerapp.util.Utils
 
-
 class DetailActivity : AppCompatActivity() {
     companion object {
         fun intent(context: Context, photo: Photo) =
